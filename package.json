@@ -10,7 +10,7 @@
     "server": "nodemon server --ignore client",
     "client": "npm start --prefix client",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "deploy-client": "npm run install-client && npm run build-client",
+    "postinstall": "npm run install-client && npm run build-client",
     "web": "node server.js"
   },
   "keywords": [],
