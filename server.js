@@ -13,7 +13,7 @@ import xss from 'xss-clean';
 import mongoSanitize from 'express-mongo-sanitize';
 import rateLimit from 'express-rate-limit';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = dirname(fileURLToPath(new URL(import.meta.url)));
 
 // db and authenticate user
 import connectDB from './db/connect.js';
@@ -53,8 +53,10 @@ app.get('/api/v1/', (req, res) => {
 app.use('/api/v1/auth', limiter, authRouter);
 app.use('/api/v1/jobs', authenticateUser, jobsRouter);
 
+console.log(__dirname);
+
 app.get('*', (req, res) => {
-  res.sendFile(__dirname, './client/build', 'index.html');
+  res.sendFile('index.html', { root: path.join(__dirname, './client/build') });
 });
 
 app.use(notFoundMiddleware);
